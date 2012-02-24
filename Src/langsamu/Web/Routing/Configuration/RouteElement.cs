@@ -238,12 +238,12 @@ namespace langsamu.Web.Routing.Configuration
                 case ElementType.PhysicalFile:
                     if (noName || noPhysicalFile || noUrl)
                     {
-                        throw new ConfigurationErrorsException("physical file routes must have name, physical file and url");
+                        throw new ConfigurationErrorsException(Resources.RoutePhysicalAttributesRequired);
                     }
 
                     if (!(noHandler && noParameters && noRoute))
                     {
-                        throw new ConfigurationErrorsException("physical file routes must not have handler type, parameters or route type");
+                        throw new ConfigurationErrorsException(Resources.RoutePhysicalAttributesRedundant);
                     }
 
                     break;
@@ -251,12 +251,12 @@ namespace langsamu.Web.Routing.Configuration
                 case ElementType.Ignore:
                     if (noUrl)
                     {
-                        throw new ConfigurationErrorsException("ignore routes must have url");
+                        throw new ConfigurationErrorsException(Resources.RouteIgnoreAttributesRequired);
                     }
 
                     if (!(noDataTokens && noDefaults && noHandler && noName && noParameters && noPhysicalFile && noRoute))
                     {
-                        throw new ConfigurationErrorsException("ignore routes must not have data tokens, defaults, handler type, name, parameters, physical file or route type");
+                        throw new ConfigurationErrorsException(Resources.RouteIgnoreAttributesRedundant);
                     }
 
                     break;
@@ -264,12 +264,12 @@ namespace langsamu.Web.Routing.Configuration
                 case ElementType.RouteBase:
                     if (noName || noRoute)
                     {
-                        throw new ConfigurationErrorsException("route type routes must have name and route type");
+                        throw new ConfigurationErrorsException(Resources.RouteRouteAttributesRequired);
                     }
 
                     if (!(noConstraints && noDataTokens && noDefaults && noHandler && noPhysicalFile))
                     {
-                        throw new ConfigurationErrorsException("route type routes must not have constraints, data tokens, defaults, handler type or physical file");
+                        throw new ConfigurationErrorsException(Resources.RouteRouteAttributesRedundant);
                     }
 
                     KeyedConfigurationElement.ValidateParameters(this.RouteType, (object[])this.Parameters);
@@ -279,12 +279,12 @@ namespace langsamu.Web.Routing.Configuration
                 case ElementType.IRouteHandler:
                     if (noName || noHandler || noUrl)
                     {
-                        throw new ConfigurationErrorsException("handler type routes must have name, handler type and url");
+                        throw new ConfigurationErrorsException(Resources.RouteHandlerAttributesRequired);
                     }
 
                     if (!(noPhysicalFile && noRoute))
                     {
-                        throw new ConfigurationErrorsException("handler type routes must not have physical file or route type");
+                        throw new ConfigurationErrorsException(Resources.RouteHandlerAttributesRedundant);
                     }
 
                     KeyedConfigurationElement.ValidateParameters(this.HandlerType, (object[])this.Parameters);

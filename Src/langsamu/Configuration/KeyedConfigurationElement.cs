@@ -16,6 +16,7 @@ namespace langsamu.Configuration
     using System.Configuration;
     using System.Globalization;
     using System.Linq;
+    using langsamu.Web.Routing.Configuration;
 
     /// <summary>
     /// Represents a configuration element that has a key.
@@ -47,7 +48,7 @@ namespace langsamu.Configuration
 
             if (constructor == null)
             {
-                throw new ConfigurationErrorsException(string.Format(CultureInfo.InvariantCulture, "incorrect parameters for {0}", type));
+                throw new ConfigurationErrorsException(string.Format(CultureInfo.InvariantCulture, Resources.IncorrectParametersForInitialisation, type));
             }
         }
     }

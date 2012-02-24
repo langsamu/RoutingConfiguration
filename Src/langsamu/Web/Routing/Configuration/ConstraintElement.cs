@@ -120,7 +120,7 @@ namespace langsamu.Web.Routing.Configuration
             {
                 if (!string.IsNullOrEmpty(this.Regex))
                 {
-                    throw new ConfigurationErrorsException("@regex and @type are mutually exclusive");
+                    throw new ConfigurationErrorsException(Resources.ConstraintAttributesMutex);
                 }
 
                 KeyedConfigurationElement.ValidateParameters(this.ConstraintType, (object[])this.Parameters);
@@ -129,12 +129,12 @@ namespace langsamu.Web.Routing.Configuration
             {
                 if (string.IsNullOrEmpty(this.Regex))
                 {
-                    throw new ConfigurationErrorsException("one of @regex or @type are required");
+                    throw new ConfigurationErrorsException(Resources.ConstraintAttributesMissing);
                 }
 
                 if (((RouteValueDictionary)this.Parameters).Any())
                 {
-                    throw new ConfigurationErrorsException("regex constraints cannot have create parameters");
+                    throw new ConfigurationErrorsException(Resources.ConstraintRegexParametersRedundant);
                 }
             }
         }
