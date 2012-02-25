@@ -19,7 +19,7 @@
             <asp:HyperLink runat="server" Text="Test values" NavigateUrl="<%$ RouteUrl: RouteName = TestValues, segment1 = s1, segment2 = s2 %>" />
         </li>
         <li>
-            <asp:HyperLink runat="server" Text="Test values (using default)" NavigateUrl="<%$ RouteUrl:RouteName = TestValues, segment1 = s1 %>" />
+            <asp:HyperLink runat="server" Text="Test values (default values)" NavigateUrl="<%$ RouteUrl:RouteName = TestValues, segment1 = s1 %>" />
         </li>
         <li>
             <asp:HyperLink runat="server" Text="Test handler 1" NavigateUrl="<%$ RouteUrl: RouteName = TestHandler1, segment1 = s1, segment2= s2 %>" />
