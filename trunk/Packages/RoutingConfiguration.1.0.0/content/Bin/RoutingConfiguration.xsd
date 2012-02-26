@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:element name="routing">
+    <xs:annotation>
+      <xs:documentation>A section used to register routes declaratively.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="add" type="Route"/>
+      </xs:sequence>
+      <xs:attribute name="routeExistingFiles" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Defines whether URLs that match an existing file should be handled.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="Route">
+    <xs:annotation>
+      <xs:documentation>Registeres a route</xs:documentation>
+    </xs:annotation>
+    <xs:all>
+      <xs:element name="constraints" type="ConstraintCollection" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A collection of constraints for this route.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="defaults" type="RouteValueDictionary" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A collection of default values for any of the url pattern segments.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="parameters" type="RouteValueDictionary" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A collection of parameters used to instanstiate the IrouteHandler or RouteBase.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="tokens" type="RouteValueDictionary" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A collection of values passed from to the route.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:all>
+    <xs:attribute name="type" use="required">
+      <xs:annotation>
+        <xs:documentation>Defines the type of route to use.</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="PhysicalFile">
+            <xs:annotation>
+              <xs:documentation>Requests matching the url pattern will be handled using a file on disk.</xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="Ignore">
+            <xs:annotation>
+              <xs:documentation>Requests matching the url pattern will not be handled by routing.</xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="RouteBase">
+            <xs:annotation>
+              <xs:documentation>Requests will be handled by a class that derives from RouteBase.</xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="IRouteHandler">
+            <xs:annotation>
+              <xs:documentation>Requests matching the url pattern will be handled by a class that derives from IRouteHandler.</xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="Mvc">
+            <xs:annotation>
+              <xs:documentation>Requests matching the url pattern will be handled by an MvcRouteHandler.</xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="name" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>The name of the route; required for PhysicalFile, RouteBase and IRoutehandler type routes.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="handler" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>The type of the IRouteHandler class to use; required for IRouteHandler type routes.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="physicalFile" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>The file on disk to use; required for PhysicalFile type routes.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="route" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>The type of the RouteBase class to use; required for RouteBase type routes.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="url" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>The URL pattern to match; required for PhysicalFile, Ignore and IRouteHandler type routes.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="ConstraintCollection">
+    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="add" type="Constraint"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Constraint">
+    <xs:annotation>
+      <xs:documentation>Registers a constraint for this route.</xs:documentation>
+    </xs:annotation>
+    <xs:all>
+      <xs:element name="parameters" type="RouteValueDictionary" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A collection of parameters used to instanstiate the IRouteConstraint.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:all>
+    <xs:attribute name="name" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>The name of URL pattern segment to constrain.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="regex" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>The regular expression to match the url pattern segment against.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="type" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>The name of a type that derives from IRouteConstraint to use to match the url pattern agains.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="RouteValueDictionary">
+    <xs:annotation>
+      <xs:documentation>Each attribute and its value are added to the collection as a key-value pair.</xs:documentation>
+    </xs:annotation>
+    <xs:anyAttribute namespace="##local" processContents="skip"/>
+  </xs:complexType>
+</xs:schema>
