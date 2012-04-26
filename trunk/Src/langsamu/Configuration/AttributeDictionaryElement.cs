@@ -49,6 +49,16 @@ namespace langsamu.Configuration
         }
 
         /// <summary>
+        /// Adds a new named value to the dictionary based on an attribute.
+        /// </summary>
+        /// <param name="name">The name of the attribute.</param>
+        /// <param name="value">The value of the attribute.</param>
+        public void Add(string name, object value)
+        {
+            this.attributes.Add(name, value);
+        }
+
+        /// <summary>
         /// Adds each unknown attribute to the dictionary.
         /// </summary>
         /// <param name="name">Name of the attribute.</param>
@@ -56,7 +66,7 @@ namespace langsamu.Configuration
         /// <returns>True to signify that adding the attribute was successful.</returns>
         protected override bool OnDeserializeUnrecognizedAttribute(string name, string value)
         {
-            this.attributes.Add(name, value);
+            this.Add(name, value);
 
             return true;
         }

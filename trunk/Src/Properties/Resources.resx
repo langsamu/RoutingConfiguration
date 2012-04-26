@@ -142,7 +142,7 @@
     <value>Ignore routes must have url.</value>
   </data>
   <data name="RouteMvcAttributesForbidden" xml:space="preserve">
-    <value>Physical file routes must not have a handler, parameters, a physical file or toute type.</value>
+    <value>Physical file routes must not have a handler, parameters, a physical file or route type.</value>
   </data>
   <data name="RouteMvcAttributesRequired" xml:space="preserve">
     <value>Mvc routes must have a name and a url.</value>

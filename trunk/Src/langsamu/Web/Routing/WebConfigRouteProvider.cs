@@ -1,4 +1,4 @@
-﻿// <copyright file="KeyedConfigurationElement.cs" company="Samu Lang">
+﻿// <copyright file="WebConfigRouteProvider.cs" company="Samu Lang">
 //      Copyright (c) 2012 Samu Lang
 //
 //      Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -10,45 +10,24 @@
 
 [module: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.StyleCop.CSharp.NamingRules", "SA1300:ElementMustBeginWithUpperCaseLetter", Justification = "It's my name")]
 
-namespace langsamu.Configuration
+namespace langsamu.Web.Routing
 {
-    using System;
-    using System.Configuration;
-    using System.Globalization;
-    using System.Linq;
+    using System.Configuration.Provider;
     using langsamu.Web.Routing.Configuration;
 
     /// <summary>
-    /// Represents a configuration element that has a key.
+    /// Represents a routing provider that gets data from a web configuration file.
     /// </summary>
-    public abstract class KeyedConfigurationElement : ConfigurationElement
+    public class WebConfigRouteProvider : RouteProvider
     {
         /// <summary>
-        /// Gets the key of the configuration elements.
+        /// Gets the collection of routes from the configuration file.
         /// </summary>
-        internal abstract object Key { get; }
-
-        /// <summary>
-        /// Checks whether the specified type has a constructor with the appropriate number of parameters.
-        /// </summary>
-        /// <param name="type">The type to check.</param>
-        /// <param name="parameters">The collection of parapeters.</param>
-        internal static void ValidateParameters(Type type, object[] parameters)
+        public override RouteCollection Routes
         {
-            var parameterCount = parameters.Count();
-
-            Type[] parameterTypes = new Type[parameterCount];
-
-            for (int i = 0; i < parameterCount; i++)
+            get
             {
-                parameterTypes[i] = typeof(string);
-            }
-
-            var constructor = type.GetConstructor(parameterTypes);
-
-            if (constructor == null)
-            {
-                throw new ConfigurationErrorsException(string.Format(CultureInfo.InvariantCulture, Resources.IncorrectParametersForInitialisation, type));
+                return RouteManager.Config.Routes;
             }
         }
     }

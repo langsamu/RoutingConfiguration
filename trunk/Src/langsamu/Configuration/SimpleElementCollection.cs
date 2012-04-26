@@ -33,9 +33,18 @@ namespace langsamu.Configuration
         }
 
         /// <summary>
-        /// Creates a new instance of the given configuration element type.
+        /// Adds an element to the collection.
         /// </summary>
-        /// <returns>The newly created configuration element.</returns>
+        /// <param name="element">The element to add to the collection.</param>
+        public void Add(T element)
+        {
+            this.BaseAdd(element);
+        }
+
+        /// <summary>
+        /// Creates a new instance of a <typeparamref name="T"/> configuration element.
+        /// </summary>
+        /// <returns>The newly created <typeparamref name="T"/> configuration element.</returns>
         protected override ConfigurationElement CreateNewElement()
         {
             return new T();

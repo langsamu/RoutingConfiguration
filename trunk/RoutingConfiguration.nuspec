@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <authors>Samu Lang</authors>
     <owners>Samu Lang</owners>
     <licenseUrl>http://routingconfiguration.codeplex.com/license</licenseUrl>
@@ -17,10 +17,10 @@
     <id>RoutingConfiguration</id>
     <title>Routing Configuration</title>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>A library that makes it easy to register routes through the .NET configuration files. Supports page routes, custom routes (IRouteHandler and RouteBase), constraints (RegEx and IRouteConstraint), defaults, parameters and tokens. Written in C# for .NET 4.</description>
+    <description>A library that makes it easy to register routes through the .NET configuration files. Supports page routes, MVC, custom routes (IRouteHandler and RouteBase), constraints (RegEx and IRouteConstraint), defaults, parameters and tokens. Written in C# for .NET 4.</description>
     <summary>ASP.NET routing in web.config.</summary>
     <copyright>Copyright (c) 2012 Samu Lang</copyright>
-    <tags>routing, configuration, ASP.NET, web.config</tags>
+    <tags>routing, configuration, ASP.NET, web.config, MVC</tags>
   </metadata>
   <files>
     <file src="Src\RoutingConfiguration.xsd" target="content\Bin\RoutingConfiguration.xsd" />
