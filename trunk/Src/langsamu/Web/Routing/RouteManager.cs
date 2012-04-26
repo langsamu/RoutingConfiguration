@@ -10,11 +10,14 @@
 
 [module: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.StyleCop.CSharp.NamingRules", "SA1300:ElementMustBeginWithUpperCaseLetter", Justification = "It's my name")]
 
-namespace langsamu.Web.Routing.Configuration
+namespace langsamu.Web.Routing
 {
     using System;
+    using System.Linq;
     using System.Web.Configuration;
+    using System.Web.Mvc;
     using System.Web.Routing;
+    using langsamu.Web.Routing.Configuration;
 
     /// <summary>
     /// A helper containing utility methods for working with declarative route configuration.
@@ -22,9 +25,26 @@ namespace langsamu.Web.Routing.Configuration
     public static class RouteManager
     {
         /// <summary>
+        /// Gets the current provider.
+        /// </summary>
+        internal static RouteProvider Provider
+        {
+            get
+            {
+                var providerName = RouteManager.Config.DefaultProviderName;
+                var providerElement = RouteManager.Config.Providers.Where(provider => provider.Name == providerName).Single();
+                var providerInstance = System.Activator.CreateInstance(providerElement.ProviderType) as RouteProvider;
+
+                providerInstance.Initialize(providerName, providerElement.Parameters);
+
+                return providerInstance;
+            }
+        }
+
+        /// <summary>
         /// Gets the route configuration section.
         /// </summary>
-        private static RoutingSection Config
+        internal static RoutingSection Config
         {
             get
             {
@@ -46,11 +66,11 @@ namespace langsamu.Web.Routing.Configuration
         /// <summary>
         /// Gets the route declarations.
         /// </summary>
-        private static RouteCollection Routes
+        private static langsamu.Web.Routing.Configuration.RouteCollection Routes
         {
             get
             {
-                return RouteManager.Config.Routes;
+                return RouteManager.Provider.Routes;
             }
         }
 
@@ -63,11 +83,11 @@ namespace langsamu.Web.Routing.Configuration
 
             routes.RouteExistingFiles = RouteManager.RouteExistingFiles;
 
-            foreach (Web.Routing.Configuration.RouteElement route in RouteManager.Routes)
+            foreach (RouteElement route in RouteManager.Routes)
             {
                 switch (route.ElementType)
                 {
-                    case ElementType.PhysicalFile:
+                    case RouteElementType.PhysicalFile:
                         routes.MapPageRoute(
                             route.Name,
                             route.Url,
@@ -79,7 +99,7 @@ namespace langsamu.Web.Routing.Configuration
 
                         break;
 
-                    case ElementType.Ignore:
+                    case RouteElementType.Ignore:
                         //// Must use this to mimic System.Web.Routing.RouteCollection.Ignore,
                         //// because that implementation relies on an object for storing constraints,
                         //// while we have a collection.
@@ -92,14 +112,14 @@ namespace langsamu.Web.Routing.Configuration
 
                         break;
 
-                    case ElementType.RouteBase:
+                    case RouteElementType.RouteBase:
                         routes.Add(
                             route.Name,
                             Activator.CreateInstance(route.RouteType, (object[])route.Parameters) as RouteBase);
 
                         break;
 
-                    case ElementType.IRouteHandler:
+                    case RouteElementType.IRouteHandler:
                         routes.Add(
                             route.Name,
                             new Route(
@@ -111,14 +131,14 @@ namespace langsamu.Web.Routing.Configuration
 
                         break;
 
-                    case ElementType.Mvc:
+                    case RouteElementType.Mvc:
                         routes.Add(
                             route.Name,
                             new Route(
                                 route.Url,
                                 (RouteValueDictionary)route.Defaults,
                                 (RouteValueDictionary)route.Constraints,
-                                new System.Web.Mvc.MvcRouteHandler()));
+                                new MvcRouteHandler()));
 
                         break;
                 }

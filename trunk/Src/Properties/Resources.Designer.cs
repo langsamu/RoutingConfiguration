@@ -133,7 +133,7 @@ namespace langsamu.Web.Routing.Configuration {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Physical file routes must not have a handler, parameters, a physical file or toute type..
+        ///   Looks up a localized string similar to Physical file routes must not have a handler, parameters, a physical file or route type..
         /// </summary>
         internal static string RouteMvcAttributesForbidden {
             get {

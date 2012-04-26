@@ -11,21 +11,10 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
-using System.Runtime.CompilerServices;
+using System.Resources;
 using System.Runtime.InteropServices;
 
-[module: SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "langsamu", Justification = "It's my name")]
-[module: SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Scope = "namespace", Target = "langsamu.Configuration", MessageId = "langsamu", Justification = "It's my name")]
-[module: SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Scope = "namespace", Target = "langsamu.Web", MessageId = "langsamu", Justification = "It's my name")]
-[module: SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Scope = "namespace", Target = "langsamu.Web.Routing", MessageId = "langsamu", Justification = "It's my name")]
-[module: SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Scope = "namespace", Target = "langsamu.Web.Routing.Configuration", MessageId = "langsamu", Justification = "It's my name")]
-
-[module: SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "langsamu", Justification = "It's my name")]
-[module: SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Scope = "namespace", Target = "langsamu.Configuration", MessageId = "langsamu", Justification = "It's my name")]
-[module: SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Scope = "namespace", Target = "langsamu.Web", MessageId = "langsamu", Justification = "It's my name")]
-[module: SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Scope = "namespace", Target = "langsamu.Web.Routing", MessageId = "langsamu", Justification = "It's my name")]
-[module: SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Scope = "namespace", Target = "langsamu.Web.Routing.Configuration", MessageId = "langsamu", Justification = "It's my name")]
-
+[module: SuppressMessage("Microsoft.Naming", "CA1703:ResourceStringsShouldBeSpelledCorrectly", Scope = "resource", Target = "langsamu.Properties.Resources.resources", MessageId = "Mvc", Justification = "Commonly used abbreviation")]
 [module: SuppressMessage("Microsoft.Design", "CA1020:AvoidNamespacesWithFewTypes", Scope = "namespace", Target = "langsamu.Web", Justification = "Follows .NET namespace hierarchy")]
 [module: SuppressMessage("Microsoft.Design", "CA1020:AvoidNamespacesWithFewTypes", Scope = "namespace", Target = "langsamu.Web.Routing", Justification = "Follows .NET namespace hierarchy")]
 
@@ -42,3 +31,4 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyVersion("1.0.0.*")]
 [assembly: AssemblyFileVersion("1.0.0")]
+[assembly: NeutralResourcesLanguageAttribute("en-GB")]

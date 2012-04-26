@@ -5,26 +5,77 @@
       <xs:documentation>A section used to register routes declaratively.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
-      <xs:sequence minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="add" type="Route"/>
-      </xs:sequence>
+      <xs:all>
+        <xs:element name="routes" type="RouteCollection" minOccurs="0"/>
+        <xs:element name="providers" type="ProviderCollection" minOccurs="0"/>
+      </xs:all>
       <xs:attribute name="routeExistingFiles" type="xs:boolean">
         <xs:annotation>
           <xs:documentation>Defines whether URLs that match an existing file should be handled.</xs:documentation>
         </xs:annotation>
       </xs:attribute>
+      <xs:attribute name="defaultProvider" type="xs:string" default="WebConfigRouteProvider">
+        <xs:annotation>
+          <xs:documentation>The name of the default provider to use</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
     </xs:complexType>
   </xs:element>
+  <xs:complexType name="ProviderCollection">
+    <xs:annotation>
+      <xs:documentation>Represents a collection of routing providers</xs:documentation>
+    </xs:annotation>
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="add" type="Provider"/>
+      <xs:element name="remove">
+        <xs:annotation>
+          <xs:documentation>Removes a provider identified by its name</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:attribute name="name" type="xs:string" use="required" >
+            <xs:annotation>
+              <xs:documentation>The name of the provider to remove</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="clear">
+        <xs:annotation>
+          <xs:documentation>Removes all providers</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="Provider">
+    <xs:annotation>
+      <xs:documentation>Represents a routing provider</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="name" type="xs:string" use="required" >
+      <xs:annotation>
+        <xs:documentation>The name of the provider</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="type" type="xs:string" use="required" >
+      <xs:annotation>
+        <xs:documentation>The type of the provider</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:anyAttribute processContents="skip" />
+  </xs:complexType>
+  <xs:complexType name="RouteCollection">
+    <xs:annotation>
+      <xs:documentation>Represents a collection of routes</xs:documentation>
+    </xs:annotation>
+    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="add" type="Route"/>
+    </xs:sequence>
+  </xs:complexType>
   <xs:complexType name="Route">
     <xs:annotation>
       <xs:documentation>Registeres a route</xs:documentation>
     </xs:annotation>
     <xs:all>
-      <xs:element name="constraints" type="ConstraintCollection" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>A collection of constraints for this route.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
+      <xs:element name="constraints" type="ConstraintCollection" minOccurs="0"/>
       <xs:element name="defaults" type="RouteValueDictionary" minOccurs="0">
         <xs:annotation>
           <xs:documentation>A collection of default values for any of the url pattern segments.</xs:documentation>
@@ -102,6 +153,9 @@
     </xs:attribute>
   </xs:complexType>
   <xs:complexType name="ConstraintCollection">
+    <xs:annotation>
+      <xs:documentation>A collection of constraints for this route.</xs:documentation>
+    </xs:annotation>
     <xs:sequence minOccurs="0" maxOccurs="unbounded">
       <xs:element name="add" type="Constraint"/>
     </xs:sequence>

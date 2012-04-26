@@ -14,6 +14,7 @@
     <AssemblyName>Sample</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <UseIISExpress>false</UseIISExpress>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\trunk\</SolutionDir>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,8 +36,9 @@
   <ItemGroup>
     <Content Include="App_Pages\Home.aspx" />
     <Content Include="App_Pages\TestValues.aspx" />
-    <Content Include="Global.asax" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -45,6 +47,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Code\SampleRouteProvider.cs" />
     <Compile Include="Code\SampleConstraint2.cs" />
     <Compile Include="Code\SampleRouteHandler2.cs" />
     <Compile Include="Code\SampleConstraint1.cs" />
@@ -65,15 +68,9 @@
     <Compile Include="App_Pages\TestValues.aspx.designer.cs">
       <DependentUpon>TestValues.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="langsamu.Web.Routing.Configuration">
-      <HintPath>..\Packages\RoutingConfiguration.1.0.0\lib\net40\langsamu.Web.Routing.Configuration.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
@@ -83,7 +80,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <ProjectReference Include="..\Src\langsamu.Web.Routing.Configuration.csproj">
+      <Project>{FD3A12F6-3175-4159-8F13-67865A693160}</Project>
+      <Name>langsamu.Web.Routing.Configuration</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

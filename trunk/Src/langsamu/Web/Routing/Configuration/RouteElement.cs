@@ -77,12 +77,12 @@ namespace langsamu.Web.Routing.Configuration
         /// Gets or sets the type of the route.
         /// </summary>
         [ConfigurationProperty("type", IsRequired = true)]
-        [TypeConverter(typeof(GenericEnumConverter<ElementType>))]
-        public ElementType ElementType
+        [TypeConverter(typeof(GenericEnumConverter<RouteElementType>))]
+        public RouteElementType ElementType
         {
             get
             {
-                return (ElementType)this["type"];
+                return (RouteElementType)this["type"];
             }
 
             set
@@ -127,7 +127,7 @@ namespace langsamu.Web.Routing.Configuration
         }
 
         /// <summary>
-        /// Gets or sets the type of route handler associated with the route.
+        /// Gets or sets the type of <see cref="IRouteHandler">route handler</see> associated with the route.
         /// </summary>
         [ConfigurationProperty("handler")]
         [TypeConverter(typeof(TypeNameConverter))]
@@ -146,7 +146,7 @@ namespace langsamu.Web.Routing.Configuration
         }
 
         /// <summary>
-        /// Gets or sets the type of route.
+        /// Gets or sets the type of <see cref="RouteBase">route base derived class</see> associated with the route.
         /// </summary>
         [ConfigurationProperty("route")]
         [TypeConverter(typeof(TypeNameConverter))]
@@ -203,13 +203,13 @@ namespace langsamu.Web.Routing.Configuration
         /// <summary>
         /// Gets the name of the route.
         /// </summary>
-        public override object Key
+        internal override object Key
         {
             get
             {
                 switch (this.ElementType)
                 {
-                    case ElementType.Ignore:
+                    case RouteElementType.Ignore:
                         return this.Url;
 
                     default:
@@ -223,51 +223,51 @@ namespace langsamu.Web.Routing.Configuration
         /// </summary>
         protected override void PostDeserialize()
         {
-            var noConstraints = !((RouteValueDictionary)this.Constraints).Any();
-            var noDataTokens = !((RouteValueDictionary)this.DataTokens).Any();
-            var noDefaults = !((RouteValueDictionary)this.Defaults).Any();
-            var noHandler = this.HandlerType == null;
-            var noName = string.IsNullOrEmpty(this.Name);
-            var noParameters = !((RouteValueDictionary)this.Parameters).Any();
-            var noPhysicalFile = string.IsNullOrEmpty(this.PhysicalFile);
-            var noRoute = this.RouteType == null;
-            var noUrl = this.Url == null;
+            var missingConstraints = !((RouteValueDictionary)this.Constraints).Any();
+            var missingDataTokens = !((RouteValueDictionary)this.DataTokens).Any();
+            var missingDefaults = !((RouteValueDictionary)this.Defaults).Any();
+            var missingHandler = this.HandlerType == null;
+            var missingName = string.IsNullOrEmpty(this.Name);
+            var missingParameters = !((RouteValueDictionary)this.Parameters).Any();
+            var missingPhysicalFile = string.IsNullOrEmpty(this.PhysicalFile);
+            var missingRoute = this.RouteType == null;
+            var missingUrl = this.Url == null;
 
             switch (this.ElementType)
             {
-                case ElementType.PhysicalFile:
-                    if (noName || noPhysicalFile || noUrl)
+                case RouteElementType.PhysicalFile:
+                    if (missingName || missingPhysicalFile || missingUrl)
                     {
                         throw new ConfigurationErrorsException(Resources.RoutePhysicalAttributesRequired);
                     }
 
-                    if (!(noHandler && noParameters && noRoute))
+                    if (!(missingHandler && missingParameters && missingRoute))
                     {
                         throw new ConfigurationErrorsException(Resources.RoutePhysicalAttributesForbidden);
                     }
 
                     break;
 
-                case ElementType.Ignore:
-                    if (noUrl)
+                case RouteElementType.Ignore:
+                    if (missingUrl)
                     {
                         throw new ConfigurationErrorsException(Resources.RouteIgnoreAttributesRequired);
                     }
 
-                    if (!(noDataTokens && noDefaults && noHandler && noName && noParameters && noPhysicalFile && noRoute))
+                    if (!(missingDataTokens && missingDefaults && missingHandler && missingName && missingParameters && missingPhysicalFile && missingRoute))
                     {
                         throw new ConfigurationErrorsException(Resources.RouteIgnoreAttributesForbidden);
                     }
 
                     break;
 
-                case ElementType.RouteBase:
-                    if (noName || noRoute)
+                case RouteElementType.RouteBase:
+                    if (missingName || missingRoute)
                     {
                         throw new ConfigurationErrorsException(Resources.RouteRouteAttributesRequired);
                     }
 
-                    if (!(noConstraints && noDataTokens && noDefaults && noHandler && noPhysicalFile))
+                    if (!(missingConstraints && missingDataTokens && missingDefaults && missingHandler && missingPhysicalFile))
                     {
                         throw new ConfigurationErrorsException(Resources.RouteRouteAttributesForbidden);
                     }
@@ -276,13 +276,13 @@ namespace langsamu.Web.Routing.Configuration
 
                     break;
 
-                case ElementType.IRouteHandler:
-                    if (noName || noHandler || noUrl)
+                case RouteElementType.IRouteHandler:
+                    if (missingName || missingHandler || missingUrl)
                     {
                         throw new ConfigurationErrorsException(Resources.RouteHandlerAttributesRequired);
                     }
 
-                    if (!(noPhysicalFile && noRoute))
+                    if (!(missingPhysicalFile && missingRoute))
                     {
                         throw new ConfigurationErrorsException(Resources.RouteHandlerAttributesForbidden);
                     }
@@ -291,13 +291,13 @@ namespace langsamu.Web.Routing.Configuration
 
                     break;
 
-                case ElementType.Mvc:
-                    if (noName || noUrl)
+                case RouteElementType.Mvc:
+                    if (missingName || missingUrl)
                     {
                         throw new ConfigurationErrorsException(Resources.RouteMvcAttributesRequired);
                     }
 
-                    if (!(noHandler && noParameters && noPhysicalFile && noRoute))
+                    if (!(missingHandler && missingParameters && missingPhysicalFile && missingRoute))
                     {
                         throw new ConfigurationErrorsException(Resources.RouteMvcAttributesForbidden);
                     }

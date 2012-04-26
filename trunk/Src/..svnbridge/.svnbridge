@@ -2,4 +2,7 @@
 *.user
 obj
 StyleCop.Cache
+</Value></Property><Property><Name>svn:ignore</Name><Value>bin
+*.user
+obj
 </Value></Property></Properties></ItemProperties>

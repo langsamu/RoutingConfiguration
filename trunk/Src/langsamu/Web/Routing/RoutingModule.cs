@@ -1,4 +1,4 @@
-﻿// <copyright file="RoutingSection.cs" company="Samu Lang">
+﻿// <copyright file="RoutingModule.cs" company="Samu Lang">
 //      Copyright (c) 2012 Samu Lang
 //
 //      Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -10,70 +10,47 @@
 
 [module: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.StyleCop.CSharp.NamingRules", "SA1300:ElementMustBeginWithUpperCaseLetter", Justification = "It's my name")]
 
-namespace langsamu.Web.Routing.Configuration
+namespace langsamu.Web.Routing
 {
-    using System.Configuration;
-
     /// <summary>
-    /// Represents a route configuration section.
+    /// Represents an HTTP module that registers routes obtained from a route provider.
     /// </summary>
-    public class RoutingSection : ConfigurationSection
+    public sealed class RoutingModule : System.Web.IHttpModule
     {
         /// <summary>
-        /// Gets or sets the name of the default provider to use.
+        /// Indicates whether the module has already been initialised.
         /// </summary>
-        [ConfigurationProperty("defaultProvider", DefaultValue = "WebConfigRouteProvider")]
-        public string DefaultProviderName
-        {
-            get
-            {
-                return (string)this["defaultProvider"];
-            }
+        private static volatile bool moduleInitialised = false;
 
-            set
-            {
-                this["defaultProvider"] = value;
-            }
+        /// <summary>
+        /// Used for synchronisation.
+        /// </summary>
+        private static object moduleLock = new object();
+
+        /// <summary>
+        /// Performs clean-up.
+        /// </summary>
+        void System.Web.IHttpModule.Dispose()
+        {
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to route existing files.
+        /// Initialises the module and registers routes.
         /// </summary>
-        [ConfigurationProperty("routeExistingFiles")]
-        public bool RouteExistingFiles
+        /// <param name="context">The current HTTP context.</param>
+        void System.Web.IHttpModule.Init(System.Web.HttpApplication context)
         {
-            get
+            if (!moduleInitialised)
             {
-                return (bool)this["routeExistingFiles"];
-            }
+                lock (moduleLock)
+                {
+                    if (!moduleInitialised)
+                    {
+                        RouteManager.RegisterRoutes();
 
-            set
-            {
-                this["routeExistingFiles"] = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets the collection of route configuration elements.
-        /// </summary>
-        [ConfigurationProperty("routes")]
-        public RouteCollection Routes
-        {
-            get
-            {
-                return this["routes"] as RouteCollection;
-            }
-        }
-
-        /// <summary>
-        /// Gets the collection of route providers defined in the configuration file.
-        /// </summary>
-        [ConfigurationProperty("providers")]
-        public ProviderCollection Providers
-        {
-            get
-            {
-                return this["providers"] as ProviderCollection;
+                        moduleInitialised = true;
+                    }
+                }
             }
         }
     }

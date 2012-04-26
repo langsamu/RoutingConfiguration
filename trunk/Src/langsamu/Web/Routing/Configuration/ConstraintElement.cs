@@ -94,7 +94,7 @@ namespace langsamu.Web.Routing.Configuration
         /// <summary>
         /// Gets the <see cref="Name">key</see> of the configuration element.
         /// </summary>
-        public override object Key
+        internal override object Key
         {
             get
             {
