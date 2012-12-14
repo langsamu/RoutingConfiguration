@@ -29,6 +29,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProduct("langsamu.Web.Routing.Configuration")]
 [assembly: AssemblyCopyright("Copyright (c) 2012 Samu Lang. All rights reserved")]
 
-[assembly: AssemblyVersion("1.0.0.*")]
+[assembly: AssemblyVersion("1.0.2.*")]
 [assembly: AssemblyFileVersion("1.0.0")]
 [assembly: NeutralResourcesLanguageAttribute("en-GB")]

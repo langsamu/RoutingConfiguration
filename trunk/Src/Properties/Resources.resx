@@ -130,13 +130,13 @@
     <value>Incorrect parameters to initialise type {0}.</value>
   </data>
   <data name="RouteHandlerAttributesForbidden" xml:space="preserve">
-    <value>Handler type routes must not have physical file or route type.</value>
+    <value>Handler type routes must not have physical file, namespaces or route type.</value>
   </data>
   <data name="RouteHandlerAttributesRequired" xml:space="preserve">
     <value>Handler type routes must have name, handler type and url.</value>
   </data>
   <data name="RouteIgnoreAttributesForbidden" xml:space="preserve">
-    <value>Ignore routes must not have data tokens, defaults, handler type, name, parameters, physical file or route type.</value>
+    <value>Ignore routes must not have data tokens, defaults, handler type, name, parameters, physical file, namespaces or route type.</value>
   </data>
   <data name="RouteIgnoreAttributesRequired" xml:space="preserve">
     <value>Ignore routes must have url.</value>
@@ -148,13 +148,13 @@
     <value>Mvc routes must have a name and a url.</value>
   </data>
   <data name="RoutePhysicalAttributesForbidden" xml:space="preserve">
-    <value>Physical file routes must not have a handler type, a route type or create parameters.</value>
+    <value>Physical file routes must not have a handler type, a route type, namespaces or create parameters.</value>
   </data>
   <data name="RoutePhysicalAttributesRequired" xml:space="preserve">
     <value>Physical file routes must have a name, a physical file path and a url.</value>
   </data>
   <data name="RouteRouteAttributesForbidden" xml:space="preserve">
-    <value>Route type routes must not have constraints, data tokens, defaults, handler type or physical file</value>
+    <value>Route type routes must not have constraints, data tokens, defaults, handler type, namespaces or physical file</value>
   </data>
   <data name="RouteRouteAttributesRequired" xml:space="preserve">
     <value>Route type routes must have name and route type.</value>

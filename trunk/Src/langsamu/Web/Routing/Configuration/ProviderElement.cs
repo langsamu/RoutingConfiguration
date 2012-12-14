@@ -24,7 +24,7 @@ namespace langsamu.Web.Routing.Configuration
     public class ProviderElement : KeyedConfigurationElement
     {
         /// <summary>
-        /// Holds provider specific initialisation parameters obtained from unregocnised attributes.
+        /// Holds provider specific initialization parameters obtained from unrecognized attributes.
         /// </summary>
         private NameValueCollection parameters = new NameValueCollection();
 
@@ -65,7 +65,7 @@ namespace langsamu.Web.Routing.Configuration
         }
 
         /// <summary>
-        /// Gets or sets a collection of provider specific initialisation parameters.
+        /// Gets or sets a collection of provider specific initialization parameters.
         /// </summary>
         public NameValueCollection Parameters
         {
@@ -92,7 +92,7 @@ namespace langsamu.Web.Routing.Configuration
         }
 
         /// <summary>
-        /// Responsible for interpreting provider specific initialisation parameters. 
+        /// Responsible for interpreting provider specific initialization parameters. 
         /// </summary>
         /// <param name="name">The name of the attribute.</param>
         /// <param name="value">The value of the attribute.</param>

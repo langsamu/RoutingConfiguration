@@ -32,7 +32,7 @@ namespace langsamu.Configuration
         /// Checks whether the specified type has a constructor with the appropriate number of parameters.
         /// </summary>
         /// <param name="type">The type to check.</param>
-        /// <param name="parameters">The collection of parapeters.</param>
+        /// <param name="parameters">The collection of parameters.</param>
         internal static void ValidateParameters(Type type, object[] parameters)
         {
             var parameterCount = parameters.Count();
