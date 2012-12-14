@@ -18,12 +18,12 @@ namespace langsamu.Web.Routing
     public sealed class RoutingModule : System.Web.IHttpModule
     {
         /// <summary>
-        /// Indicates whether the module has already been initialised.
+        /// Indicates whether the module has already been initialized.
         /// </summary>
         private static volatile bool moduleInitialised = false;
 
         /// <summary>
-        /// Used for synchronisation.
+        /// Used for synchronization.
         /// </summary>
         private static object moduleLock = new object();
 
@@ -35,7 +35,7 @@ namespace langsamu.Web.Routing
         }
 
         /// <summary>
-        /// Initialises the module and registers routes.
+        /// Initializes the module and registers routes.
         /// </summary>
         /// <param name="context">The current HTTP context.</param>
         void System.Web.IHttpModule.Init(System.Web.HttpApplication context)

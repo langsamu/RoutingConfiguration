@@ -91,6 +91,11 @@
           <xs:documentation>A collection of values passed from to the route.</xs:documentation>
         </xs:annotation>
       </xs:element>
+      <xs:element name="namespaces" type="NamespaceCollection" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A collection of namespaces for an Mvc route.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
     </xs:all>
     <xs:attribute name="type" use="required">
       <xs:annotation>
@@ -192,5 +197,23 @@
       <xs:documentation>Each attribute and its value are added to the collection as a key-value pair.</xs:documentation>
     </xs:annotation>
     <xs:anyAttribute namespace="##local" processContents="skip"/>
+  </xs:complexType>
+  <xs:complexType name="NamespaceCollection">
+    <xs:annotation>
+      <xs:documentation></xs:documentation>
+    </xs:annotation>
+    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="add" type="Namespace"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Namespace">
+    <xs:annotation>
+      <xs:documentation></xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="namespace" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation></xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
   </xs:complexType>
 </xs:schema>

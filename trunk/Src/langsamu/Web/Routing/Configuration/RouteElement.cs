@@ -12,13 +12,14 @@
 
 namespace langsamu.Web.Routing.Configuration
 {
+    using langsamu.Configuration;
     using System;
     using System.ComponentModel;
     using System.Configuration;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using System.Web.Configuration;
     using System.Web.Routing;
-    using langsamu.Configuration;
 
     /// <summary>
     /// Represents a route configuration element.
@@ -177,6 +178,18 @@ namespace langsamu.Web.Routing.Configuration
         }
 
         /// <summary>
+        /// Gets a collection of namespaces for the Mvc route.
+        /// </summary>
+        [ConfigurationProperty("namespaces")]
+        public NamespaceCollection Namespaces
+        {
+            get
+            {
+                return this["namespaces"] as NamespaceCollection;
+            }
+        }
+
+        /// <summary>
         /// Gets a collection of default values associated with the route.
         /// </summary>
         [ConfigurationProperty("defaults")]
@@ -232,6 +245,7 @@ namespace langsamu.Web.Routing.Configuration
             var missingPhysicalFile = string.IsNullOrEmpty(this.PhysicalFile);
             var missingRoute = this.RouteType == null;
             var missingUrl = this.Url == null;
+            var missingNamespaces = this.Namespaces.Count == 0;
 
             switch (this.ElementType)
             {
@@ -241,7 +255,7 @@ namespace langsamu.Web.Routing.Configuration
                         throw new ConfigurationErrorsException(Resources.RoutePhysicalAttributesRequired);
                     }
 
-                    if (!(missingHandler && missingParameters && missingRoute))
+                    if (!(missingHandler && missingParameters && missingRoute && missingNamespaces))
                     {
                         throw new ConfigurationErrorsException(Resources.RoutePhysicalAttributesForbidden);
                     }
@@ -254,7 +268,7 @@ namespace langsamu.Web.Routing.Configuration
                         throw new ConfigurationErrorsException(Resources.RouteIgnoreAttributesRequired);
                     }
 
-                    if (!(missingDataTokens && missingDefaults && missingHandler && missingName && missingParameters && missingPhysicalFile && missingRoute))
+                    if (!(missingDataTokens && missingDefaults && missingHandler && missingName && missingParameters && missingPhysicalFile && missingRoute && missingNamespaces))
                     {
                         throw new ConfigurationErrorsException(Resources.RouteIgnoreAttributesForbidden);
                     }
@@ -267,7 +281,7 @@ namespace langsamu.Web.Routing.Configuration
                         throw new ConfigurationErrorsException(Resources.RouteRouteAttributesRequired);
                     }
 
-                    if (!(missingConstraints && missingDataTokens && missingDefaults && missingHandler && missingPhysicalFile))
+                    if (!(missingConstraints && missingDataTokens && missingDefaults && missingHandler && missingPhysicalFile && missingNamespaces))
                     {
                         throw new ConfigurationErrorsException(Resources.RouteRouteAttributesForbidden);
                     }
@@ -282,7 +296,7 @@ namespace langsamu.Web.Routing.Configuration
                         throw new ConfigurationErrorsException(Resources.RouteHandlerAttributesRequired);
                     }
 
-                    if (!(missingPhysicalFile && missingRoute))
+                    if (!(missingPhysicalFile && missingRoute && missingNamespaces))
                     {
                         throw new ConfigurationErrorsException(Resources.RouteHandlerAttributesForbidden);
                     }

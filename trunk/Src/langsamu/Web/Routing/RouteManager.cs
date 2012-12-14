@@ -12,12 +12,12 @@
 
 namespace langsamu.Web.Routing
 {
+    using langsamu.Web.Routing.Configuration;
     using System;
     using System.Linq;
     using System.Web.Configuration;
     using System.Web.Mvc;
     using System.Web.Routing;
-    using langsamu.Web.Routing.Configuration;
 
     /// <summary>
     /// A helper containing utility methods for working with declarative route configuration.
@@ -75,7 +75,7 @@ namespace langsamu.Web.Routing
         }
 
         /// <summary>
-        /// Registeres routes based on declarative route configuration.
+        /// Registers routes based on declarative route configuration.
         /// </summary>
         public static void RegisterRoutes()
         {
@@ -100,15 +100,7 @@ namespace langsamu.Web.Routing
                         break;
 
                     case RouteElementType.Ignore:
-                        //// Must use this to mimic System.Web.Routing.RouteCollection.Ignore,
-                        //// because that implementation relies on an object for storing constraints,
-                        //// while we have a collection.
-
-                        var ignoreRouteType = typeof(System.Web.Routing.RouteCollection).GetNestedType("IgnoreRouteInternal", System.Reflection.BindingFlags.NonPublic);
-                        var ignoreRoute = (Route)Activator.CreateInstance(ignoreRouteType, new object[] { route.Url });
-                        ignoreRoute.Constraints = (RouteValueDictionary)route.Constraints;
-
-                        routes.Add(ignoreRoute);
+                        routes.Ignore(route.Url, (RouteValueDictionary)route.Constraints);
 
                         break;
 
@@ -132,13 +124,15 @@ namespace langsamu.Web.Routing
                         break;
 
                     case RouteElementType.Mvc:
-                        routes.Add(
+                        var namespaces = new NamespaceInfo[route.Namespaces.Count];
+                        route.Namespaces.CopyTo(namespaces, 0);
+
+                        routes.MapRoute(
                             route.Name,
-                            new Route(
-                                route.Url,
-                                (RouteValueDictionary)route.Defaults,
-                                (RouteValueDictionary)route.Constraints,
-                                new MvcRouteHandler()));
+                            route.Url,
+                            (RouteValueDictionary)route.Defaults,
+                            (RouteValueDictionary)route.Constraints,
+                            namespaces.Select(ns => ns.Namespace).ToArray());
 
                         break;
                 }

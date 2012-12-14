@@ -1,9 +1,16 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Web Developer Express 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Web
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "langsamu.Web.Routing.Configuration", "Src\langsamu.Web.Routing.Configuration.csproj", "{FD3A12F6-3175-4159-8F13-67865A693160}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample", "Sample\Sample.csproj", "{980591ED-C652-40AF-AE1B-D6808CF5C4CD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample", "Sample\Sample.csproj", "{AEDB96BB-A45D-47EE-AFC6-74C73D57AF37}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{123408D1-E281-491E-A405-68CA3E8B2F4F}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +22,10 @@ Global
 		{FD3A12F6-3175-4159-8F13-67865A693160}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD3A12F6-3175-4159-8F13-67865A693160}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD3A12F6-3175-4159-8F13-67865A693160}.Release|Any CPU.Build.0 = Release|Any CPU
-		{980591ED-C652-40AF-AE1B-D6808CF5C4CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{980591ED-C652-40AF-AE1B-D6808CF5C4CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{980591ED-C652-40AF-AE1B-D6808CF5C4CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{980591ED-C652-40AF-AE1B-D6808CF5C4CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEDB96BB-A45D-47EE-AFC6-74C73D57AF37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEDB96BB-A45D-47EE-AFC6-74C73D57AF37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEDB96BB-A45D-47EE-AFC6-74C73D57AF37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEDB96BB-A45D-47EE-AFC6-74C73D57AF37}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

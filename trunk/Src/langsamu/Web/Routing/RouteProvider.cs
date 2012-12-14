@@ -21,7 +21,7 @@ namespace langsamu.Web.Routing
     public abstract class RouteProvider : ProviderBase
     {
         /// <summary>
-        /// Gets the collection of routes when overriden by a derived class.
+        /// Gets the collection of routes when overridden by a derived class.
         /// </summary>
         public abstract RouteCollection Routes { get; }
     }
